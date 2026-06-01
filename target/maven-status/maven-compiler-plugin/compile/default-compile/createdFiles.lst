@@ -1,0 +1,3 @@
+com\example\beanstalkdemo\BeanstalkDemoApplication.class
+com\example\beanstalkdemo\controller\AppController.class
+com\example\beanstalkdemo\service\S3Service.class
