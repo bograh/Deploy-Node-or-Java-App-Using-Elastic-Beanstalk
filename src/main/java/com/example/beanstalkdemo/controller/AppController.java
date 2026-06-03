@@ -1,12 +1,13 @@
 package com.example.beanstalkdemo.controller;
 
-import com.example.beanstalkdemo.service.S3Service;
+import com.example.beanstalkdemo.model.Visit;
+import com.example.beanstalkdemo.service.VisitService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
-import java.time.LocalDateTime;
 
 @RestController
 public class AppController {
@@ -14,10 +15,10 @@ public class AppController {
     @Value("${app.version:unknown}")
     private String version;
 
-    private final S3Service s3Service;
+    private final VisitService visitService;
 
-    public AppController(S3Service s3Service) {
-        this.s3Service = s3Service;
+    public AppController(VisitService visitService) {
+        this.visitService = visitService;
     }
 
     @GetMapping("/")
@@ -36,23 +37,16 @@ public class AppController {
         );
     }
 
-    @GetMapping("/visit")
-    public Map<String, String> recordVisit() {
-        String key = s3Service.recordVisit("/visit");
-        return Map.of(
-            "status", "recorded",
-            "s3Key", key,
-            "dataStore", "Amazon S3"
-        );
+    @PostMapping("/visits")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Visit createVisit(@RequestBody Map<String, String> body) {
+        String path = body.getOrDefault("path", "/");
+        String message = body.getOrDefault("message", "");
+        return visitService.save(path, message);
     }
 
-    @GetMapping("/latest-push")
-    public Map<String, String> getLatestPush() {
-        return Map.of(
-            "version", version,
-            "language", "Java",
-            "framework", "Spring Boot",
-            "timestamp", LocalDateTime.now().toString()
-        );
+    @GetMapping("/visits")
+    public List<Visit> getVisits() {
+        return visitService.findAll();
     }
 }
