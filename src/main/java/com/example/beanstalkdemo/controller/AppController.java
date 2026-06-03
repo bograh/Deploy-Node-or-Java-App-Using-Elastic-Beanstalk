@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.time.LocalDateTime;
 
 @RestController
 public class AppController {
@@ -42,6 +43,16 @@ public class AppController {
             "status", "recorded",
             "s3Key", key,
             "dataStore", "Amazon S3"
+        );
+    }
+
+    @GetMapping("/latest-push")
+    public Map<String, String> getLatestPush() {
+        return Map.of(
+            "version", version,
+            "language", "Java",
+            "framework", "Spring Boot",
+            "timestamp", LocalDateTime.now().toString()
         );
     }
 }
