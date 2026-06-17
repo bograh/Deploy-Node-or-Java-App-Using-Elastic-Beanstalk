@@ -29,6 +29,13 @@ public class AppController {
         );
     }
 
+    @GetMapping("/health")
+    public Map<String, String> healthCheck() {
+        return Map.of(
+            "status", "ok"
+        );
+    }
+
     @GetMapping("/version")
     public Map<String, String> getVersion() {
         return Map.of(
