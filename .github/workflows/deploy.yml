@@ -18,8 +18,8 @@ jobs:
       - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'corretto'
+          java-version: "21"
+          distribution: "corretto"
           cache: maven
 
       - name: Build with Maven
@@ -38,6 +38,7 @@ jobs:
           cp target/beanstalk-demo.jar bundle/
           cp Procfile bundle/
           [ -d .ebextensions ] && cp -r .ebextensions bundle/ || true
+          printf 'app.version=%s\n' '${{ steps.version.outputs.label }}' > bundle/application.properties
           cd bundle
           zip -r "../${{ steps.version.outputs.bundle }}" .
 
