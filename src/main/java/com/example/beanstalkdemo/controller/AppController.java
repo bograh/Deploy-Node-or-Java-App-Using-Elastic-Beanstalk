@@ -25,7 +25,7 @@ public class AppController {
     public Map<String, String> health() {
         return Map.of(
             "status", "ok",
-            "message", "Java app deployed via Elastic Beanstalk"
+            "message", "Java App deployed via Elastic Beanstalk"
         );
     }
 
