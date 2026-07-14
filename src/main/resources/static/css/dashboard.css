@@ -1,0 +1,243 @@
+:root {
+    color-scheme: dark;
+    --bg: #0b1020;
+    --bg-soft: rgba(17, 24, 39, 0.72);
+    --panel: rgba(15, 23, 42, 0.88);
+    --line: rgba(148, 163, 184, 0.2);
+    --text: #e5eefb;
+    --muted: #94a3b8;
+    --accent: #7dd3fc;
+    --accent-strong: #38bdf8;
+    --success: #4ade80;
+    --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.16), transparent 22%),
+        linear-gradient(180deg, #050816 0%, #091126 42%, #0b1020 100%);
+}
+
+.shell {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 48px;
+}
+
+.hero {
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.55));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+}
+
+.eyebrow,
+.label {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--muted);
+}
+
+h1 {
+    margin: 12px 0 10px;
+    font-size: clamp(2.4rem, 5vw, 4.6rem);
+    line-height: 0.96;
+    max-width: 12ch;
+}
+
+.lead {
+    max-width: 64ch;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.stats,
+.grid {
+    display: grid;
+    gap: 16px;
+}
+
+.stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 24px;
+}
+
+.stat-card,
+.panel {
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+}
+
+.stat-card {
+    padding: 18px 20px;
+}
+
+.stat-card strong,
+.snapshot strong,
+#health-state,
+#visit-count {
+    display: block;
+    margin-top: 8px;
+    font-size: 1.25rem;
+}
+
+.grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    margin-top: 18px;
+}
+
+.panel {
+    padding: 22px;
+}
+
+.panel-title h2,
+.visits-header h3 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.panel-title p,
+.visits-header p,
+.snapshot,
+.form-status {
+    color: var(--muted);
+}
+
+.visit-form {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.visit-form label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.visit-form input,
+.visit-form textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 15px;
+    color: var(--text);
+    background: rgba(2, 6, 23, 0.58);
+    font: inherit;
+}
+
+.visit-form input:focus,
+.visit-form textarea:focus,
+button:focus {
+    outline: 2px solid rgba(125, 211, 252, 0.55);
+    outline-offset: 2px;
+}
+
+button {
+    border: 0;
+    border-radius: 999px;
+    padding: 13px 18px;
+    font: inherit;
+    font-weight: 700;
+    color: #03111f;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    cursor: pointer;
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+.snapshot {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.snapshot > div,
+.visit-item {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px;
+    background: rgba(2, 6, 23, 0.38);
+}
+
+.visits-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.visits-header button {
+    padding: 10px 15px;
+    font-size: 0.92rem;
+}
+
+.visits-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.visit-item strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.visit-meta {
+    margin-top: 10px;
+    font-size: 0.86rem;
+    color: var(--muted);
+}
+
+.empty-state {
+    color: var(--muted);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.form-status.success {
+    color: var(--success);
+}
+
+@media (max-width: 900px) {
+    .stats,
+    .grid,
+    .snapshot {
+        grid-template-columns: 1fr;
+    }
+
+    .shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 18px;
+    }
+
+    .hero,
+    .panel {
+        padding: 18px;
+        border-radius: 20px;
+    }
+}

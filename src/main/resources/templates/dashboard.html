@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beanstalk Demo Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+</head>
+
+<body>
+    <div class="shell">
+        <header class="hero">
+            <div class="eyebrow">AWS Elastic Beanstalk</div>
+            <h1>Beanstalk Demo Dashboard</h1>
+            <p class="lead">A polished Thymeleaf front end wrapped around the live API, versioned and deployed with the
+                app.</p>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="label">App version</span>
+                    <strong th:text="${appVersion}">1.0.0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="label">API health</span>
+                    <strong id="health-state">Loading...</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Visit count</span>
+                    <strong id="visit-count">0</strong>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid">
+            <section class="panel">
+                <div class="panel-title">
+                    <h2>Record a visit</h2>
+                    <p>Writes to the same backend service used by the API.</p>
+                </div>
+
+                <form id="visit-form" class="visit-form">
+                    <label>
+                        Path
+                        <input name="path" type="text" value="/ui" placeholder="/ui" />
+                    </label>
+                    <label>
+                        Message
+                        <textarea name="message" rows="4" placeholder="Leave a note about the deployment"></textarea>
+                    </label>
+                    <button type="submit">Save visit</button>
+                    <p id="form-status" class="form-status"></p>
+                </form>
+            </section>
+
+            <section class="panel">
+                <div class="panel-title">
+                    <h2>Live API snapshot</h2>
+                    <p>Loaded from <code>/version</code>, <code>/health</code>, and <code>/visits</code>.</p>
+                </div>
+
+                <div class="snapshot">
+                    <div>
+                        <span class="label">Deployment</span>
+                        <strong id="version-value">Loading...</strong>
+                    </div>
+                    <div>
+                        <span class="label">Platform</span>
+                        <strong>AWS Elastic Beanstalk</strong>
+                    </div>
+                </div>
+
+                <div class="visits-header">
+                    <h3>Recent visits</h3>
+                    <button id="refresh-visits" type="button">Refresh</button>
+                </div>
+
+                <div id="visits-list" class="visits-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script th:inline="javascript">
+        window.APP_CONFIG = {
+            basePath: /*[[${apiBasePath}]]*/ "",
+            uiVersion: /*[[${appVersion}]]*/ "1.0.0"
+        };
+    </script>
+    <script th:src="@{/js/dashboard.js}"></script>
+</body>
+
+</html>
