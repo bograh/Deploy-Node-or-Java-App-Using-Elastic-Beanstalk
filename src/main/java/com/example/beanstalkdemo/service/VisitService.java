@@ -22,4 +22,8 @@ public class VisitService {
     public List<Visit> findAll() {
         return repository.findAll();
     }
+
+    public void deleteAll() {
+        repository.deleteAll();
+    }
 }
